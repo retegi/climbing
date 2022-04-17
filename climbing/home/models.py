@@ -1,5 +1,6 @@
 from unittest.util import _MAX_LENGTH
 from django.db import models
+from PIL import Image
 
 
 class Track (models.Model):
@@ -21,4 +22,29 @@ class Track (models.Model):
     
     def __str__(self):
         return (self.name)
+
+def upload_to(instance, filename): #Esta función genera el directorio al modelo ImageTrack.
+    return 'media/img/track/{}/{}'.format(instance.track.id, filename)
+
+
+class ImageTrack(models.Model):
+    name = models.CharField('Título',max_length=100,null=True, blank=True)
+    track=models.ForeignKey(Track, related_name="track_image",on_delete=models.CASCADE , null=True, blank=True)
+    image_imageTrack = models.ImageField(upload_to=upload_to)
+
+    def save(self, *args, **kwargs):
+        instance = super(ImageTrack, self).save(*args, **kwargs)
+        image = Image.open(self.image_imageTrack.path)
+        image.save(self.image_imageTrack.path, quality=20, optimize=True)
+        return instance
+
+    class Meta:
+        verbose_name = 'Imagen pista'
+        verbose_name_plural = 'Imagen de pistas'
+        ordering = ['name']
+
+    def __str__(self):
+        return str(self.image_imageTrack)
+
+
     

@@ -3,7 +3,7 @@ from webbrowser import get
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from .models import Track
+from .models import Track, ImageTrack
 from django.views.generic.detail import DetailView
 
 def home(request):
@@ -37,4 +37,5 @@ class TrackDetailView(DetailView):
         name = self.kwargs['pk']
         context = super().get_context_data(**kwargs)
         context['tracks'] = Track.objects.filter(id = name)
+        context['images'] = ImageTrack.objects.all()
         return context
