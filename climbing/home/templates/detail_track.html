@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Map {% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+crossorigin=""></script>
+
+<style>
+    
+
+</style>
+
+
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col-4 mt-5">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Concepto</th>
+            <th scope="col">Dato</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+        {% for track in tracks %}
+          <tr>
+            <th scope="row"></th>
+            <td>País</td>
+            <td>{{ track.country }}</td>
+            
+          </tr>
+          <tr>
+            <th scope="row"></th>
+            <td>CCAA</td>
+            <td>{{ track.autonomous_community }}</td>
+            
+          </tr>
+          <tr>
+            <th scope="row"></th>
+            <td>Localidad</td>
+            <td>{{ track.location }}</td>
+          </tr>
+
+          <tr>
+            <th scope="row"></th>
+            <td>Tipo escalada</td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <th scope="row"></th>
+            <td>Dificultad</td>
+            <td>{{ track.difficulty }}</td>
+          </tr>
+
+          <tr>
+            <th scope="row"></th>
+            <td>Descripción</td>
+            <td>{{ track.short_description }}</td>
+          </tr>
+
+          <tr>
+            <th scope="row"></th>
+            <td>Localizar en mapa</td>
+            <td><a target=”_blank” href="https://maps.google.com/?ll={{ track.longitud }},{{ track.latitude }}&z=18&t=p">localizar</a></td>
+          </tr>
+
+        {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-8 mt-5" style="background:gray">
+      <img src="">
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+{% endblock %}
+
+{% block outbody %}
+{% endblock %}
